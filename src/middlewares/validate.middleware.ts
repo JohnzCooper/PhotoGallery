@@ -9,7 +9,7 @@ export class ValidateMiddleware {
     public ValidateCode(req: Request, res: Response, next: NextFunction) {
         const regExPattern = new RegExp("^([a-zA-Z0-9]){0,40}$");
 
-        if (!regExPattern.test(req.params.id.trim()))
+        if (!regExPattern.test(req.params.code.trim()))
             return res.status(400).send({ ok: false, error: "Invalid collection code" });
         next();
     }

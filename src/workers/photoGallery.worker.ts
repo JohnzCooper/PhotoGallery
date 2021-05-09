@@ -44,15 +44,21 @@ export class PhotoGalleryWorker {
 
   public addPhotoGallery(photoGallery: IPhotoGallery): Promise<IPhotoGallery> {
     return new Promise<IPhotoGallery>((resolve, reject) => {
-      const newPhotoGallery = new PhotoGallery(photoGallery);
-      newPhotoGallery.save().then(result => {
-        if (!result) {
-          this.errorObject.message = 'Mongoose add newPhotoGallery failed';
+      PhotoGallery.findOne({ code: photoGallery.code }).exec().then(result => {
+        if (result) {
+          this.errorObject.message = `Photo Gallery with code '${photoGallery.code}' is found. Code can't duplicate.`;
           return reject(this.errorObject);
         }
-        return resolve(result);
-      }).catch(error => {
-        reject(error.message);
+        const newPhotoGallery = new PhotoGallery(photoGallery);
+        newPhotoGallery.save().then(result => {
+          if (!result) {
+            this.errorObject.message = 'Mongoose add newPhotoGallery failed';
+            return reject(this.errorObject);
+          }
+          return resolve(result);
+        }).catch(error => {
+          reject(error.message);
+        });
       });
     });
   }

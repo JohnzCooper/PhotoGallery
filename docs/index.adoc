@@ -1,0 +1,648 @@
+= Tech Assessment - Senior Fullstack NodeJS Developer
+Author : Amila Samaranayake
+:description: Project PhotoGallery is a simple RESTful API developed using NodeJS - Express application with Typescript, MongoDB as database and Client Application is developed by HTML, Javascript and Bootstrap. This is a containerized application that uses docker-compose for deployment.
+:keywords: NodeJs, Typescript, MongoDB, Docker, RestAPI, HTML, Javascript, Bootstrap
+:page-description: {description}
+:page-keywords: {keywords}
+:page-layout: docs
+ifndef::env-site[]
+:toc: left
+:icons: font
+:idprefix:
+:idseparator: -
+:sectanchors:
+:source-highlighter: highlightjs
+endif::[]
+:experimental:
+:mdash: &#8212;
+:language: asciidoc
+:source-language: {language}
+:table-caption!:
+:example-caption!:
+:figure-caption!:
+:imagesdir: ./images
+// Refs
+:url-github: https://github.com/JohnzCooper/PhotoGallery.git
+
+Project *PhotoGallery* is a simple *RESTful API* developed using *NodeJS - Express* application with *Typescript*. *MongoDB* as database and Client Application is developed by *HTML*, *Javascript* and *Bootstrap*. This is a containerized application that uses *docker-compose* for deployment. + 
+
+TIP: You can find the Github repo in {url-github}[PhotoGallery].
+
+In this document:
+
+- The introduction and the structure of the PhotoGallery App
+- Prerequisite and local installation guide
+- Application run and test guide
+- Describe assumption and dependencies
+
+Let's dive in to PhotoGallery!
+
+== Introduction 
+
+This is a simple Rest API to work with simple Photo Gallery Model. HTTP methods: GET, POST, PUT, which correspond to Read, Create, Update respectively. 
+
+Application source code structure
+
+image::codestructure.png[] 
+
+
+== Prerequisite and local installation guide
+
+Primary requirements for the project are NodeJS and Docker installed on your environment.
+
+TIP: Open up a terminal and run following commands to check primary requirements  + 
+`node -v` : If Node installed you will get the Node version  + 
+`docker -v` : If Docker installed you will get the Docker version 
+
+1. Download or clone source code from github {url-github}[https://github.com/JohnzCooper/MoviesAPI.git]
+2. Open the source via a code editor or cmd
+3. Run `npm install`
+4. Next step is to build the project with typescript (`npm install` will install all the modules including Typescript Compiler (tsc), If you are having issues with Typescript compiler please try to install it globally `npm install -g typescript` ) 
+`npm run build` this will create `./dist` directory. `./dist` folder is git ignored. 
+5. To run the docker compose, need to create `.env` file in root directory to set environment variables for the application.`.env` should setup with 
++
+--
+----
+APP_VERSION=0.1.0
+SERVER_PORT=3010
+MONGO_PORT=27017
+MONGO_DB=admin
+APP_TOKEN=
+MONGO_USERNAME=
+MONGO_PASSWORD=
+----
+
+NOTE: Assume all these `environment variables` will be set by pipeline. Since we don't have an actual pipeline we can simulate this using `.env` file. `.env` file already ignored by git. `MONGO_USERNAME`, `MONGO_PASSWORD` and `APP_TOKEN` must be set before running docker-compose.
+--
+6. Run `docker compose up` (server will start with the given `SERVER_PORT` (eg: http://localhost:3010/))
++
+--
+WARNING: Please check containers (`gallery_server , gallery_db`) are running by `docker ps`. If `gallery_server` container is not running, start it using `docker start CONTAINER_ID`. 
+--
+
+=== Development Scripts
+    * `npm run build` : To build typescript files and this will create `/dist` directory.
+    * `npm run clean` : To clean `./dist` directory .
+    * `npm run start` : To Clean,Build and Start the application.
+
+== Application endpoint and test guide
+
+=== Available API Endpoints
+
+* URLs: + 
+`/api/gallery/:{code}` + 
+`/api/photos/:{code}`
+
+* Methods: + 
+GET | POST | PUT
+
+* URL Params: + 
+** Required: 
+*** `/api/gallery/` -  POST + 
+    `token=[alphanumeric]` (Pass through the headers)
+
+*** `/api/gallery/:{code}` - GET (Get One) | PUT + 
+    `code=[alphanumeric]` + 
+    `token=[alphanumeric]` (Pass through the headers)
+
+*** `/api/photos/:{code}` - GET (Get One) + 
+    `code=[alphanumeric]` + 
+    `token=[alphanumeric]` (Pass through the headers)
+
+* Database Model:
+** PhotoGallerySchema: 
++
+--
+[source]
+----
+{ 
+    _id: {type: ObjectId},
+    code: { type: String, required: [true, "Field is required"] },
+    photoGallery: { type: [], required: [true, "Field is required"] }
+}
+
+----
+--
+
+** PhotoList (photoGallery): 
++
+--
+[source]
+----
+{ 
+    id: { type: String, required: [true, "Field is required"] },
+    picture: { type: String, required: [true, "Field is required"] }
+}
+
+----
+--
+
+== PhotoGallery API Operations
+
+=== Add Gallery
+** URL : `/api/gallery/`
+** Request Method : `POST`
+** Authentication : `token` | App token which has been configured with `ENV_VAR`
+** Request Body : Gallery JSON Object
++
+--
+[source]
+----
+{
+    "code": "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ",
+    "photoGallery": [
+        {
+            "id": 204900001,
+            "picture": "https://www.filepicker.io/api/file/c5XwmVekSQO2CIabnudN"
+        },
+        {
+            "id": 204900002,
+            "picture": "https://www.filepicker.io/api/file/oTUic0PTS4KiBJFbahbl"
+        },
+        {
+            "id": 204900003,
+            "picture": "https://www.filepicker.io/api/file/OqPljPIRimcdPI5DWxlv"
+        },
+        {
+            "id": 204900004,
+            "picture": "https://www.filepicker.io/api/file/OkleqwBQLCvFBAbByUxY"
+        },
+        {
+            "id": 204900005,
+            "picture": "https://www.filepicker.io/api/file/AbFrknBZRLGmJuUTWYr2"
+        },
+        {
+            "id": 204900006,
+            "picture": "https://www.filepicker.io/api/file/d7x3POy5SZi3tSOt91PP"
+        },
+        {
+            "id": 204900007,
+            "picture": "https://www.filepicker.io/api/file/APOJhuSF2hQB370cIc8A"
+        },
+        {
+            "id": 204900008,
+            "picture": "https://www.filepicker.io/api/file/vecb8mtvR4SNwfVlWdZo"
+        },
+        {
+            "id": 204900009,
+            "picture": "https://www.filepicker.io/api/file/Gztd1zETrmjk4vYcuiQ2"
+        }
+    ]
+}
+----
+--
+** Response : New Gallery Object (JSON)
++
+--
+[source]
+----
+Status: 200 OK
+----
+[source]
+----
+{
+    "photoGallery": [
+        {
+            "id": 204900001,
+            "picture": "https://www.filepicker.io/api/file/c5XwmVekSQO2CIabnudN"
+        },
+        {
+            "id": 204900002,
+            "picture": "https://www.filepicker.io/api/file/oTUic0PTS4KiBJFbahbl"
+        },
+        {
+            "id": 204900003,
+            "picture": "https://www.filepicker.io/api/file/OqPljPIRimcdPI5DWxlv"
+        },
+        {
+            "id": 204900004,
+            "picture": "https://www.filepicker.io/api/file/OkleqwBQLCvFBAbByUxY"
+        },
+        {
+            "id": 204900005,
+            "picture": "https://www.filepicker.io/api/file/AbFrknBZRLGmJuUTWYr2"
+        },
+        {
+            "id": 204900006,
+            "picture": "https://www.filepicker.io/api/file/d7x3POy5SZi3tSOt91PP"
+        },
+        {
+            "id": 204900007,
+            "picture": "https://www.filepicker.io/api/file/APOJhuSF2hQB370cIc8A"
+        },
+        {
+            "id": 204900008,
+            "picture": "https://www.filepicker.io/api/file/vecb8mtvR4SNwfVlWdZo"
+        },
+        {
+            "id": 204900009,
+            "picture": "https://www.filepicker.io/api/file/Gztd1zETrmjk4vYcuiQ2"
+        }
+    ],
+    "_id": "6097f7476814c545d01b6e2e",
+    "code": "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ",
+    "__v": 0
+}
+----
+--
+---------------------------------------------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------
+=== Update Gallery
+** URL : `/api/gallery/:{code}` => `/api/gallery/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
+** Request Method : `PUT`
+** Authentication : `token` | App token which has been configured with `ENV_VAR`
+** Request Data Object : Gallery JSON Object
++
+--
+[source]
+----
+{
+    "code" : "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ",
+    "photoGallery" : [
+        {
+            "id": 204900010,
+            "picture": "https://www.filepicker.io/api/file/YDFPdySyivzEgopu58Lw"
+        },
+        {
+            "id": 204900011,
+            "picture": "https://www.filepicker.io/api/file/VpKlBFJRotNVbF8EEFtA"
+        },
+        {
+            "id": 204900012,
+            "picture": "https://www.filepicker.io/api/file/C355ixgkQVCYGNkGSG50"
+        },
+        {
+            "id": 204900013,
+            "picture": "https://www.filepicker.io/api/file/lFkDrVuPRIG4ubhSMrsE"
+        },
+        {
+            "id": 204900014,
+            "picture": "https://www.filepicker.io/api/file/3LtOaKHyQemw8j2HUDE9"
+        },
+        {
+            "id": 204900015,
+            "picture": "https://www.filepicker.io/api/file/CTpPD6vkQF58qaiPglhQ"
+        },
+        {
+            "id": 204900016,
+            "picture": "https://www.filepicker.io/api/file/4BzYSsWOSOCbtG302olA"
+        },
+        {
+            "id": 204900017,
+            "picture": "https://www.filepicker.io/api/file/2ldBY3MJTtyndYbR00z2"
+        },
+        {
+            "id": 204900018,
+            "picture": "https://www.filepicker.io/api/file/QtGhHaWCRtKnIilzxrR2"
+        }
+    ]
+}
+----
+--
+
+** Response : Previous Gallery Object (JSON)
++
+--
+[source]
+----
+Status: 200 OK
+----
+[source]
+----
+{
+    "photoGallery": [
+        {
+            "id": 204900001,
+            "picture": "https://www.filepicker.io/api/file/c5XwmVekSQO2CIabnudN"
+        },
+        {
+            "id": 204900002,
+            "picture": "https://www.filepicker.io/api/file/oTUic0PTS4KiBJFbahbl"
+        },
+        {
+            "id": 204900003,
+            "picture": "https://www.filepicker.io/api/file/OqPljPIRimcdPI5DWxlv"
+        },
+        {
+            "id": 204900004,
+            "picture": "https://www.filepicker.io/api/file/OkleqwBQLCvFBAbByUxY"
+        },
+        {
+            "id": 204900005,
+            "picture": "https://www.filepicker.io/api/file/AbFrknBZRLGmJuUTWYr2"
+        },
+        {
+            "id": 204900006,
+            "picture": "https://www.filepicker.io/api/file/d7x3POy5SZi3tSOt91PP"
+        },
+        {
+            "id": 204900007,
+            "picture": "https://www.filepicker.io/api/file/APOJhuSF2hQB370cIc8A"
+        },
+        {
+            "id": 204900008,
+            "picture": "https://www.filepicker.io/api/file/vecb8mtvR4SNwfVlWdZo"
+        },
+        {
+            "id": 204900009,
+            "picture": "https://www.filepicker.io/api/file/Gztd1zETrmjk4vYcuiQ2"
+        }
+    ],
+    "_id": "6097f7476814c545d01b6e2e",
+    "code": "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ",
+    "__v": 0
+}
+----
+--
+
+=== Get Gallery Photos
+** URL : `/api/gallery/{:code}`
+** Request Method : `GET`
+** Authentication : `token` | App token which has been configured with `ENV_VAR`
+** Response : List of Gallery Photos (JSON)
++
+--
+[source]
+----
+Status: 200 OK
+----
+[source]
+----
+{
+    "photoGallery": [
+        {
+            "id": 204900010,
+            "picture": "https://www.filepicker.io/api/file/YDFPdySyivzEgopu58Lw"
+        },
+        {
+            "id": 204900011,
+            "picture": "https://www.filepicker.io/api/file/VpKlBFJRotNVbF8EEFtA"
+        },
+        {
+            "id": 204900012,
+            "picture": "https://www.filepicker.io/api/file/C355ixgkQVCYGNkGSG50"
+        },
+        {
+            "id": 204900013,
+            "picture": "https://www.filepicker.io/api/file/lFkDrVuPRIG4ubhSMrsE"
+        },
+        {
+            "id": 204900014,
+            "picture": "https://www.filepicker.io/api/file/3LtOaKHyQemw8j2HUDE9"
+        },
+        {
+            "id": 204900015,
+            "picture": "https://www.filepicker.io/api/file/CTpPD6vkQF58qaiPglhQ"
+        },
+        {
+            "id": 204900016,
+            "picture": "https://www.filepicker.io/api/file/4BzYSsWOSOCbtG302olA"
+        },
+        {
+            "id": 204900017,
+            "picture": "https://www.filepicker.io/api/file/2ldBY3MJTtyndYbR00z2"
+        },
+        {
+            "id": 204900018,
+            "picture": "https://www.filepicker.io/api/file/QtGhHaWCRtKnIilzxrR2"
+        }
+    ],
+    "_id": "6097f7476814c545d01b6e2e",
+    "code": "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ",
+    "__v": 0
+}
+----
+--
+
+=== Get All Upload Photos
+
+** URL : `/api/photos/:{code}` => `/api/photos/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
+** Request Method : `GET`
+** Authentication : `token` | App token which has been configured with `ENV_VAR`
+** Response : Requested Photos Object (JSON)
++
+--
+[source]
+----
+Status: 200 OK
+----
+[source]
+----
+{
+    "code": "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ",
+    "photoGallery": [
+        {
+            "id": 204900001,
+            "picture": "https://www.filepicker.io/api/file/c5XwmVekSQO2CIabnudN"
+        },
+        {
+            "id": 204900002,
+            "picture": "https://www.filepicker.io/api/file/oTUic0PTS4KiBJFbahbl"
+        },
+        {
+            "id": 204900003,
+            "picture": "https://www.filepicker.io/api/file/OqPljPIRimcdPI5DWxlv"
+        },
+        {
+            "id": 204900004,
+            "picture": "https://www.filepicker.io/api/file/OkleqwBQLCvFBAbByUxY"
+        },
+        {
+            "id": 204900005,
+            "picture": "https://www.filepicker.io/api/file/AbFrknBZRLGmJuUTWYr2"
+        },
+        {
+            "id": 204900006,
+            "picture": "https://www.filepicker.io/api/file/d7x3POy5SZi3tSOt91PP"
+        },
+        {
+            "id": 204900007,
+            "picture": "https://www.filepicker.io/api/file/APOJhuSF2hQB370cIc8A"
+        },
+        {
+            "id": 204900008,
+            "picture": "https://www.filepicker.io/api/file/vecb8mtvR4SNwfVlWdZo"
+        },
+        {
+            "id": 204900009,
+            "picture": "https://www.filepicker.io/api/file/Gztd1zETrmjk4vYcuiQ2"
+        },
+        {
+            "id": 204900010,
+            "picture": "https://www.filepicker.io/api/file/YDFPdySyivzEgopu58Lw"
+        },
+        {
+            "id": 204900011,
+            "picture": "https://www.filepicker.io/api/file/VpKlBFJRotNVbF8EEFtA"
+        },
+        {
+            "id": 204900012,
+            "picture": "https://www.filepicker.io/api/file/C355ixgkQVCYGNkGSG50"
+        },
+        {
+            "id": 204900013,
+            "picture": "https://www.filepicker.io/api/file/lFkDrVuPRIG4ubhSMrsE"
+        },
+        {
+            "id": 204900014,
+            "picture": "https://www.filepicker.io/api/file/3LtOaKHyQemw8j2HUDE9"
+        },
+        {
+            "id": 204900015,
+            "picture": "https://www.filepicker.io/api/file/CTpPD6vkQF58qaiPglhQ"
+        },
+        {
+            "id": 204900016,
+            "picture": "https://www.filepicker.io/api/file/4BzYSsWOSOCbtG302olA"
+        },
+        {
+            "id": 204900017,
+            "picture": "https://www.filepicker.io/api/file/2ldBY3MJTtyndYbR00z2"
+        },
+        {
+            "id": 204900018,
+            "picture": "https://www.filepicker.io/api/file/QtGhHaWCRtKnIilzxrR2"
+        },
+        {
+            "id": 204900019,
+            "picture": "https://www.filepicker.io/api/file/5UFD4b5fS3eKH6MsQa2q"
+        },
+        {
+            "id": 204900020,
+            "picture": "https://www.filepicker.io/api/file/H4JckkwNRbaTVMR3jh6B"
+        },
+        {
+            "id": 204900021,
+            "picture": "https://www.filepicker.io/api/file/lCYG8m99QxGhAR0OObJw"
+        },
+        {
+            "id": 204900022,
+            "picture": "https://www.filepicker.io/api/file/yGSkL96QGmv6M4acLgNs"
+        },
+        {
+            "id": 204900023,
+            "picture": "https://www.filepicker.io/api/file/fLdzTB6zS5iuPGb3c2R4"
+        },
+        {
+            "id": 204900024,
+            "picture": "https://www.filepicker.io/api/file/vvzp9Sk2TkaI1x6ip9Mc"
+        },
+        {
+            "id": 204900025,
+            "picture": "https://www.filepicker.io/api/file/rPrcNH0aRW89ifdqlEuf"
+        },
+        {
+            "id": 204900026,
+            "picture": "https://www.filepicker.io/api/file/4cmn2DpmT7y0Ops40aG7"
+        },
+        {
+            "id": 204900027,
+            "picture": "https://www.filepicker.io/api/file/MFjpQCVrTsW8nr1ou3zT"
+        },
+        {
+            "id": 204900028,
+            "picture": "https://www.filepicker.io/api/file/uQM3FeS2TvSjYYtGgWLx"
+        },
+        {
+            "id": 204900029,
+            "picture": "https://www.filepicker.io/api/file/y4KVb6igRb6x7AUSjX2U"
+        },
+        {
+            "id": 204900030,
+            "picture": "https://www.filepicker.io/api/file/5ZoS74eLQTGPJOBc7lfn"
+        },
+        {
+            "id": 204900031,
+            "picture": "https://www.filepicker.io/api/file/o5JNq1jSIW7J15A5cjuM"
+        },
+        {
+            "id": 204900032,
+            "picture": "https://www.filepicker.io/api/file/0KHHtW5pQeunZJiyJb8V"
+        },
+        {
+            "id": 204900033,
+            "picture": "https://www.filepicker.io/api/file/BFYcwcixRSGlV7MOwI85"
+        },
+        {
+            "id": 204900034,
+            "picture": "https://www.filepicker.io/api/file/EFOpZXR9TsWTWhF4F4SX"
+        },
+        {
+            "id": 204900035,
+            "picture": "https://www.filepicker.io/api/file/z36zDtrRuUJ3HAOw4uEg"
+        },
+        {
+            "id": 204900036,
+            "picture": "https://www.filepicker.io/api/file/wR1dtVwSLqMW5ueGUUug"
+        },
+        {
+            "id": 204900037,
+            "picture": "https://www.filepicker.io/api/file/EH84oM3DTRSvP9dUPKCm"
+        }
+    ]
+}
+----
+--
+
+== Basic API Error Messages
+
+=== Gallery Code
+* {code} - Should be a collection code (`alphanumerical string`) and `length < 40` characters.
++
+--
+[source]
+----
+Response Body : { ok: false, error: "Invalid collection code" } | Status : 400
+----
+--
+
+=== Application Token
+* token - `APPLICATION_TOKEN` should be set and token should be equal to `APPLICATION_TOKEN`.
++
+--
+[source]
+----
+{ ok: false, error: "Authentication failed" } | status: 401
+{ ok: false, error: "Internal server error" } | status: 500
+----
+--
+
+== Application Logger
+* This application support two types of logger transports
+** Console : + 
+    This is for debug level logs.
+** File : + 
+    All info level logs will be stored in a log file (`server.log`). This file is ignored from git.
+
+== Client Application
+image::clientScreen.png[]
+
+* This Client App is based on simple HTML, Javascript, Jquery, Bootstrap Using as UI framework.
+* This has two sections.
+** Photo Gallery
+*** In initial loading this Photo Gallery will fill with user upload photos. Then user can select the best nine photos from the gallery. Photo order will be defined with the selection. And photos will add to My Favorite Photo Grid section. If user clicks again on selected photo, clicked photo will be removed from My Favorite Photo Grid and photo order will rearrange accordingly. + 
+
+NOTE: Photo clicking order is the selected photos' order.
+
+** My Favorite Photo Grid
+*** After the selection of faFavorite photos, we can save the selected photos by clicking the button Submit Your Selected Photos. If there is not already created gallery document for the user. Server will create new gallery and add all selected photos otherwise server will update the existing gallery document with the newly selected photos. 
+
+=== Code Structure
+
+image::clientStructure.png[] 
+
+
+
+
+== Describe assumption and dependencies
+
+* Assume that app version will be set by the build pipeline as an environment variable. `.env` file is to simulate the behavior.
+* Used `wait-for.sh` for await Server Docker container until DB server get started.
+
+== Documentation
+
+* API document is in `asciidoc` format and It is in the repo.(`/docs` directory).
+* Document URL : + 
+** `/docs` : This will return api documentation index file.
+** `/docs/index.adoc` : This will download the asciidoc file. 
+
+

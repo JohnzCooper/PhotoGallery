@@ -1,0 +1,55 @@
+version: "3.1"
+
+services:
+  db:
+    image: mongo:latest
+    container_name: gallery_db
+    restart: always
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+
+    volumes:
+      - ./dbdata:/data/db
+      
+    command: [--auth]
+    networks:
+      - app-network
+      
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: gallery_server
+    restart: always
+    depends_on:  
+      - db
+    env_file: .env
+    environment:
+      - SERVER_PORT=$SERVER_PORT
+      - APP_TOKEN=$APP_TOKEN
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+      - APP_VERSION=$APP_VERSION
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
+    volumes:
+      - .:/usr/app
+      - //var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - app-network
+
+    command: ./wait-for.sh db:27017 -- npm run start
+  
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:

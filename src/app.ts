@@ -40,7 +40,7 @@ class App {
   }
 
   private setStaticFiles() {
-    this.app.use("/docs", express.static('./docs'));
+    this.app.use("/docs", express.static(path.join(__dirname,'../../docs')));
     this.app.use("/", express.static(path.join(__dirname,'../../public/')));
   }
 
