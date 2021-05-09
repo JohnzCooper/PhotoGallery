@@ -245,7 +245,7 @@ Status: 200 OK
 }
 ----
 --
----------------------------------------------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-------------------
+
 === Update Gallery
 ** URL : `/api/gallery/:{code}` => `/api/gallery/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
 ** Request Method : `PUT`
