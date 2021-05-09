@@ -626,17 +626,18 @@ NOTE: Photo clicking order is the selected photos' order.
 ** My Favorite Photo Grid
 *** After the selection of faFavorite photos, we can save the selected photos by clicking the button Submit Your Selected Photos. If there is not already created gallery document for the user. Server will create new gallery and add all selected photos otherwise server will update the existing gallery document with the newly selected photos. 
 
+image::selectedphotos.png[]
+
 === Code Structure
 
-image::clientStructure.png[] 
-
-
+image::clientStructure.png[]
 
 
 == Describe assumption and dependencies
 
 * Assume that app version will be set by the build pipeline as an environment variable. `.env` file is to simulate the behavior.
 * Used `wait-for.sh` for await Server Docker container until DB server get started.
+* In the Client application `Token` and `Code` are hardcoded. Yes it is not a best practice. This type of application should have an user logging and authentication will be handled with the logging. With the given uploaded photo endpoint I assume It's a collection for a particular user. So I use `Code` property as a unique value for a gallery.
 
 == Documentation
 

@@ -1,6 +1,6 @@
 const App = (() => {
   const Code = "CHhASmTpKjaHyAsSaauThRqMMjWanYkQ";
-  const token = "YvlVLbj7mBm2WIHyQGO53A==";
+  const Token = "YvlVLbj7mBm2WIHyQGO53A==";
   let selectedImageList = [];
   let isFoundSelectedPhotos = false;
   
@@ -27,7 +27,7 @@ const App = (() => {
       return Code;
     },
     get Token() {
-      return token;
+      return Token;
     }
   }
 })()
