@@ -90,22 +90,22 @@ WARNING: Please check containers (`gallery_server , gallery_db`) are running by 
 === Available API Endpoints
 
 * URLs: + 
-`/api/gallery/:{code}` + 
-`/api/photos/:{code}`
+`/api/v1/gallery/:{code}` + 
+`/api/v1/photos/:{code}`
 
 * Methods: + 
 GET | POST | PUT
 
 * URL Params: + 
 ** Required: 
-*** `/api/gallery/` -  POST + 
+*** `/api/v1/gallery/` -  POST + 
     `token=[alphanumeric]` (Pass through the headers)
 
-*** `/api/gallery/:{code}` - GET (Get One) | PUT + 
+*** `/api/v1/gallery/:{code}` - GET (Get One) | PUT + 
     `code=[alphanumeric]` + 
     `token=[alphanumeric]` (Pass through the headers)
 
-*** `/api/photos/:{code}` - GET (Get One) + 
+*** `/api/v1/photos/:{code}` - GET (Get One) + 
     `code=[alphanumeric]` + 
     `token=[alphanumeric]` (Pass through the headers)
 
@@ -140,7 +140,7 @@ GET | POST | PUT
 == PhotoGallery API Operations
 
 === Add Gallery
-** URL : `/api/gallery/`
+** URL : `/api/v1/gallery/`
 ** Request Method : `POST`
 ** Authentication : `token` | App token which has been configured with `ENV_VAR`
 ** Request Body : Gallery JSON Object
@@ -247,7 +247,7 @@ Status: 200 OK
 --
 
 === Update Gallery
-** URL : `/api/gallery/:{code}` => `/api/gallery/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
+** URL : `/api/v1/gallery/:{code}` => `/api/v1/gallery/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
 ** Request Method : `PUT`
 ** Authentication : `token` | App token which has been configured with `ENV_VAR`
 ** Request Data Object : Gallery JSON Object
@@ -355,7 +355,7 @@ Status: 200 OK
 --
 
 === Get Gallery Photos
-** URL : `/api/gallery/{:code}`
+** URL : `/api/v1/gallery/{:code}`
 ** Request Method : `GET`
 ** Authentication : `token` | App token which has been configured with `ENV_VAR`
 ** Response : List of Gallery Photos (JSON)
@@ -415,7 +415,7 @@ Status: 200 OK
 
 === Get All Upload Photos
 
-** URL : `/api/photos/:{code}` => `/api/photos/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
+** URL : `/api/v1/photos/:{code}` => `/api/v1/photos/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ`
 ** Request Method : `GET`
 ** Authentication : `token` | App token which has been configured with `ENV_VAR`
 ** Response : Requested Photos Object (JSON)

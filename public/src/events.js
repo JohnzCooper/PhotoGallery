@@ -19,7 +19,7 @@ const Events = (() => {
       code: App.Code,
       photoGallery: App.SelectedImageList,
     };
-    HttpClient.Request("post", "json", `/api/gallery`, data)
+    HttpClient.Request("post", "json", `/api/v1/gallery`, data)
       .done((response) => {
         if (response && response.error) {
           console.log(response);
@@ -38,7 +38,7 @@ const Events = (() => {
       code: App.Code,
       photoGallery: App.SelectedImageList,
     };
-    HttpClient.Request("put", "json", `/api/gallery/${App.Code}`, data)
+    HttpClient.Request("put", "json", `/api/v1/gallery/${App.Code}`, data)
       .done((response) => {
         if (response && response.error) {
           console.log(response);

@@ -656,8 +656,8 @@ Please check containers (<code>gallery_server , gallery_db</code>) are running b
 <ul>
 <li class="data-line-92">
 <p>URLs:<br>
-<code>/api/gallery/:{code}</code><br>
-<code>/api/photos/:{code}</code></p>
+<code>/api/v1/gallery/:{code}</code><br>
+<code>/api/v1/photos/:{code}</code></p>
 </li>
 <li class="data-line-96">
 <p>Methods:<br>
@@ -672,16 +672,16 @@ GET | POST | PUT</p>
 <div class="ulist data-line-101">
 <ul>
 <li class="data-line-101">
-<p><code>/api/gallery/</code> -  POST<br>
+<p><code>/api/v1/gallery/</code> -  POST<br>
 <code>token=[alphanumeric]</code> (Pass through the headers)</p>
 </li>
 <li class="data-line-104">
-<p><code>/api/gallery/:{code}</code> - GET (Get One) | PUT<br>
+<p><code>/api/v1/gallery/:{code}</code> - GET (Get One) | PUT<br>
 <code>code=[alphanumeric]</code><br>
 <code>token=[alphanumeric]</code> (Pass through the headers)</p>
 </li>
 <li class="data-line-108">
-<p><code>/api/photos/:{code}</code> - GET (Get One)<br>
+<p><code>/api/v1/photos/:{code}</code> - GET (Get One)<br>
 <code>code=[alphanumeric]</code><br>
 <code>token=[alphanumeric]</code> (Pass through the headers)</p>
 </li>
@@ -742,7 +742,7 @@ GET | POST | PUT</p>
 <div class="ulist data-line-143">
 <ul>
 <li class="data-line-143">
-<p>URL : <code>/api/gallery/</code></p>
+<p>URL : <code>/api/v1/gallery/</code></p>
 </li>
 <li class="data-line-144">
 <p>Request Method : <code>POST</code></p>
@@ -869,7 +869,7 @@ GET | POST | PUT</p>
 <div class="ulist data-line-250">
 <ul>
 <li class="data-line-250">
-<p>URL : <code>/api/gallery/:{code}</code> &#8658; <code>/api/gallery/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ</code></p>
+<p>URL : <code>/api/v1/gallery/:{code}</code> &#8658; <code>/api/v1/gallery/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ</code></p>
 </li>
 <li class="data-line-251">
 <p>Request Method : <code>PUT</code></p>
@@ -996,7 +996,7 @@ GET | POST | PUT</p>
 <div class="ulist data-line-358">
 <ul>
 <li class="data-line-358">
-<p>URL : <code>/api/gallery/{:code}</code></p>
+<p>URL : <code>/api/v1/gallery/{:code}</code></p>
 </li>
 <li class="data-line-359">
 <p>Request Method : <code>GET</code></p>
@@ -1071,7 +1071,7 @@ GET | POST | PUT</p>
 <div class="ulist data-line-418">
 <ul>
 <li class="data-line-418">
-<p>URL : <code>/api/photos/:{code}</code> &#8658; <code>/api/photos/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ</code></p>
+<p>URL : <code>/api/v1/photos/:{code}</code> &#8658; <code>/api/v1/photos/CHhASmTpKjaHyAsSaauThRqMMjWanYkQ</code></p>
 </li>
 <li class="data-line-419">
 <p>Request Method : <code>GET</code></p>
@@ -1453,7 +1453,7 @@ Otherwise <strong>server authentication will fail</strong>.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-10 12:19:17 +0550
+Last updated 2021-05-10 16:17:21 +0550
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

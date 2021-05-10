@@ -1,7 +1,7 @@
 const PhotoGrid = (() => {
   const BuildSelectedPhotoGrid = (code) => {
     return new Promise((resolve, reject) => {
-      HttpClient.Request("get", "json", `/api/gallery/${code}`, null)
+      HttpClient.Request("get", "json", `/api/v1/gallery/${code}`, null)
         .done((response) => {
           if (response && response.error) {
             console.log(response);
@@ -25,7 +25,7 @@ const PhotoGrid = (() => {
   };
 
   const BuildMainPhotoGrid = (code) => {
-    HttpClient.Request("get", "json", `/api/photos/${code}`, null)
+    HttpClient.Request("get", "json", `/api/v1/photos/${code}`, null)
     .done(response => {
       if (response && response.error) {
         console.log(response);
