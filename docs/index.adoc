@@ -632,6 +632,8 @@ image::selectedphotos.png[]
 
 image::clientStructure.png[]
 
+NOTE: Same value you set to `APP_TOKEN` need to be set to the Client Code `/public/src/app.js` variable `const Token = ""` as it's hardcoded for this scenario.
+Otherwise *server authentication will fail*.
 
 == Describe assumption and dependencies
 

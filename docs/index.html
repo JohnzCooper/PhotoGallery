@@ -1391,43 +1391,56 @@ Photo clicking order is the selected photos' order.
 <img src="./images/clientStructure.png" alt="clientStructure">
 </div>
 </div>
+<div class="admonitionblock note data-line-635">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Same value you set to <code>APP_TOKEN</code> need to be set to the Client Code <code>/public/src/app.js</code> variable <code>const Token = ""</code> as it&#8217;s hardcoded for this scenario.
+Otherwise <strong>server authentication will fail</strong>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
-<div class="sect1 data-line-636">
+</div>
+<div class="sect1 data-line-638">
 <h2 id="describe-assumption-and-dependencies"><a class="anchor" href="#describe-assumption-and-dependencies"></a>Describe assumption and dependencies</h2>
 <div class="sectionbody">
-<div class="ulist data-line-638">
+<div class="ulist data-line-640">
 <ul>
-<li class="data-line-638">
+<li class="data-line-640">
 <p>Assume that app version will be set by the build pipeline as an environment variable. <code>.env</code> file is to simulate the behavior.</p>
 </li>
-<li class="data-line-639">
+<li class="data-line-641">
 <p>Used <code>wait-for.sh</code> for await Server Docker container until DB server get started.</p>
 </li>
-<li class="data-line-640">
+<li class="data-line-642">
 <p>In the Client application <code>Token</code> and <code>Code</code> are hardcoded. Yes it is not a best practice. This type of application should have an user logging and authentication will be handled with the logging. With the given uploaded photo endpoint I assume It&#8217;s a collection for a particular user. So I use <code>Code</code> property as a unique value for a gallery.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="sect1 data-line-642">
+<div class="sect1 data-line-644">
 <h2 id="documentation"><a class="anchor" href="#documentation"></a>Documentation</h2>
 <div class="sectionbody">
-<div class="ulist data-line-644">
-<ul>
-<li class="data-line-644">
-<p>API document is in <code>asciidoc</code> format and It is in the repo.(<code>/docs</code> directory).</p>
-</li>
-<li class="data-line-645">
-<p>Document URL :<br></p>
 <div class="ulist data-line-646">
 <ul>
 <li class="data-line-646">
-<p><code>/docs</code> : This will return api documentation index file.</p>
+<p>API document is in <code>asciidoc</code> format and It is in the repo.(<code>/docs</code> directory).</p>
 </li>
 <li class="data-line-647">
+<p>Document URL :<br></p>
+<div class="ulist data-line-648">
+<ul>
+<li class="data-line-648">
+<p><code>/docs</code> : This will return api documentation index file.</p>
+</li>
+<li class="data-line-649">
 <p><code>/docs/index.adoc</code> : This will download the asciidoc file.</p>
 </li>
 </ul>
@@ -1440,7 +1453,7 @@ Photo clicking order is the selected photos' order.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-10 00:07:33 +0550
+Last updated 2021-05-10 12:13:36 +0550
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
