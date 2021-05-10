@@ -54,7 +54,7 @@ TIP: Open up a terminal and run following commands to check primary requirements
 `node -v` : If Node installed you will get the Node version  + 
 `docker -v` : If Docker installed you will get the Docker version 
 
-1. Download or clone source code from github {url-github}[https://github.com/JohnzCooper/MoviesAPI.git]
+1. Download or clone source code from github {url-github}[https://github.com/JohnzCooper/PhotoGallery.git]
 2. Open the source via a code editor or cmd
 3. Run `npm install`
 4. Next step is to build the project with typescript (`npm install` will install all the modules including Typescript Compiler (tsc), If you are having issues with Typescript compiler please try to install it globally `npm install -g typescript` ) 
