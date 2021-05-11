@@ -8,7 +8,7 @@ export class PhotoGalleryService {
   }
 
   public async getAllUploadPhotos(code: string) {
-    return new Promise<IFetchedPhotos | void>((resolve, reject) => {
+    return new Promise<IFetchedPhotos>((resolve, reject) => {
       this.photoGalleryWorker.getAllUploadPhotos(code).then(result => {
         return resolve(result);
       }).catch((error: any) => {
@@ -31,7 +31,7 @@ export class PhotoGalleryService {
     return new Promise<IPhotoGallery>((resolve, reject) => {
       this.photoGalleryWorker.addPhotoGallery(photoGallery).then(result => {
         return resolve(result);
-      }).catch(error => {
+      }).catch((error: any) => {
         reject(error.message);
       });
     });
@@ -41,7 +41,7 @@ export class PhotoGalleryService {
     return new Promise<IPhotoGallery>((resolve, reject) => {
       this.photoGalleryWorker.updatePhotoGallery(code, photoGallery).then(result => {
         return resolve(result);
-      }).catch(error => {
+      }).catch((error: any) => {
         reject(error);
       });
     });

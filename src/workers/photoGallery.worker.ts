@@ -20,8 +20,9 @@ export class PhotoGalleryWorker {
           }
           resolve(fetchedPhotos);
         })
-        .catch(error => {
+        .catch((error: any) => {
           logger.error(error);
+          reject(error.message);
         })
     });
   }
@@ -35,8 +36,9 @@ export class PhotoGalleryWorker {
         }
         else
           return resolve(result);
-      }).catch(error => {
-        logger.error(error);
+      })
+      .catch((error: any) => {
+        logger.error({message: error.message , stack: error.stack});
         reject(error.message);
       });
     });
@@ -56,7 +58,9 @@ export class PhotoGalleryWorker {
             return reject(this.errorObject);
           }
           return resolve(result);
-        }).catch(error => {
+        })
+        .catch((error: any) => {
+          logger.error({message: error.message , stack: error.stack});
           reject(error.message);
         });
       });
@@ -70,12 +74,13 @@ export class PhotoGalleryWorker {
           this.errorObject.message = `Photo Gallery with code '${code}' not found`;
           return reject(this.errorObject);
         }
-
         return resolve(result);
-      }).catch(error => {
-        logger.error(error);
+      })
+      .catch((error: any) => {
+        logger.error({message: error.message , stack: error.stack});
         reject(error.message);
       });
     });
   }
+
 }

@@ -14,6 +14,7 @@ import { PhotoGalleryService } from "./services/photoGallery.service";
 import { PhotoGalleryWorker } from "./workers/photoGallery.worker";
 import { ErrorLogHelper } from "./helpers/errorLog.helper"
 import { ValidateMiddleware } from "./middlewares/validate.middleware";
+import logger from "./logger";
 
 class App {
   public app: Application;
@@ -32,11 +33,15 @@ class App {
   }
 
   private setMongoConfig() {
-    mongoose.Promise = global.Promise;
-    mongoose.connect(MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+      mongoose.Promise = global.Promise;
+      mongoose.connect(MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }).then(result => {
+        logger.info('Connected to mongo DB');
+      }).catch(error => {
+        logger.error(error);
+      });
   }
 
   private setStaticFiles() {
