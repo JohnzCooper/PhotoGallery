@@ -29,7 +29,8 @@ export class PhotoGalleryWorker {
 
   public findPhotoGallery(code: string) {
     return new Promise<IPhotoGallery | IFetchedPhotos>((resolve, reject) => {
-      PhotoGallery.findOne({ code: code }).exec().then(async result => { //ToDO: Check need of exec anymore
+      PhotoGallery.findOne({ code: code }).exec()
+      .then(async result => { //ToDO: Check need of exec anymore
         if (!result) {
           this.errorObject.message = `Gallery with code '${code}' is not found`;
           return reject(this.errorObject);
@@ -46,13 +47,15 @@ export class PhotoGalleryWorker {
 
   public addPhotoGallery(photoGallery: IPhotoGallery): Promise<IPhotoGallery> {
     return new Promise<IPhotoGallery>((resolve, reject) => {
-      PhotoGallery.findOne({ code: photoGallery.code }).exec().then(result => {
+      PhotoGallery.findOne({ code: photoGallery.code }).exec()
+      .then(result => {
         if (result) {
           this.errorObject.message = `Photo Gallery with code '${photoGallery.code}' is found. Code can't duplicate.`;
           return reject(this.errorObject);
         }
         const newPhotoGallery = new PhotoGallery(photoGallery);
-        newPhotoGallery.save().then(result => {
+        newPhotoGallery.save()
+        .then(result => {
           if (!result) {
             this.errorObject.message = 'Mongoose add newPhotoGallery failed';
             return reject(this.errorObject);
@@ -69,7 +72,8 @@ export class PhotoGalleryWorker {
 
   public updatePhotoGallery(code: string, photoGallery: IPhotoGallery) {
     return new Promise<IPhotoGallery>((resolve, reject) => {
-      PhotoGallery.findOneAndUpdate({ code: code }, photoGallery).exec().then(result => {
+      PhotoGallery.findOneAndUpdate({ code: code }, photoGallery).exec()
+      .then(result => {
         if (!result) {
           this.errorObject.message = `Photo Gallery with code '${code}' not found`;
           return reject(this.errorObject);

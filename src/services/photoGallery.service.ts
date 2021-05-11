@@ -9,9 +9,11 @@ export class PhotoGalleryService {
 
   public async getAllUploadPhotos(code: string) {
     return new Promise<IFetchedPhotos>((resolve, reject) => {
-      this.photoGalleryWorker.getAllUploadPhotos(code).then(result => {
+      this.photoGalleryWorker.getAllUploadPhotos(code)
+      .then(result => {
         return resolve(result);
-      }).catch((error: any) => {
+      })
+      .catch((error: any) => {
         reject(error);
       });
     });
@@ -19,9 +21,11 @@ export class PhotoGalleryService {
 
   public async findPhotoGallery(code: string) {
     return new Promise<IPhotoGallery | IFetchedPhotos>((resolve, reject) => {
-      this.photoGalleryWorker.findPhotoGallery(code).then(result => {
+      this.photoGalleryWorker.findPhotoGallery(code)
+      .then(result => {
         return resolve(result);
-      }).catch((error: any) => {
+      })
+      .catch((error: any) => {
         reject(error);
       });
     });
@@ -29,9 +33,11 @@ export class PhotoGalleryService {
 
   public addPhotoGallery(photoGallery: IPhotoGallery): Promise<IPhotoGallery> {
     return new Promise<IPhotoGallery>((resolve, reject) => {
-      this.photoGalleryWorker.addPhotoGallery(photoGallery).then(result => {
+      this.photoGalleryWorker.addPhotoGallery(photoGallery)
+      .then(result => {
         return resolve(result);
-      }).catch((error: any) => {
+      })
+      .catch((error: any) => {
         reject(error.message);
       });
     });
@@ -39,9 +45,11 @@ export class PhotoGalleryService {
 
   public async updatePhotoGallery(code: string, photoGallery: IPhotoGallery) {
     return new Promise<IPhotoGallery>((resolve, reject) => {
-      this.photoGalleryWorker.updatePhotoGallery(code, photoGallery).then(result => {
+      this.photoGalleryWorker.updatePhotoGallery(code, photoGallery)
+      .then(result => {
         return resolve(result);
-      }).catch((error: any) => {
+      })
+      .catch((error: any) => {
         reject(error);
       });
     });

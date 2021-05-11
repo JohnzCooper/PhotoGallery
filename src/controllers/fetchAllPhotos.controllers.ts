@@ -12,9 +12,11 @@ export class FetchAllPhotosController {
   }
 
   public getAllUploadPhotos = async (req: Request, res: Response) => {
-    this.photoGalleryService.getAllUploadPhotos(req.params.code).then(photos => {
+    this.photoGalleryService.getAllUploadPhotos(req.params.code)
+    .then(photos => {
       res.send(photos);
-    }).catch((error: any) => {
+    })
+    .catch((error: any) => {
       const errorObject = this.errorLogHelper.findErrorStatus(error);
       res.status(errorObject.status).send(errorObject.message);
     });

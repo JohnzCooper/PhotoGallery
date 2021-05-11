@@ -12,27 +12,33 @@ export class PhotoGalleryController {
   }
 
   public findPhotoGallery = async (req: Request, res: Response) => {
-    this.photoGalleryService.findPhotoGallery(req.params.code).then(photos => {
+    this.photoGalleryService.findPhotoGallery(req.params.code)
+    .then(photos => {
       res.send(photos);
-    }).catch((error: any) => {
+    })
+    .catch((error: any) => {
       const errorObject = this.errorLogHelper.findErrorStatus(error);
       res.status(errorObject.status).send(errorObject.message);
     });
   };
 
   public addPhotoGallery = (req: Request, res: Response) => {
-    this.photoGalleryService.addPhotoGallery(req.body).then(addedPhotoGalleryResult => {
+    this.photoGalleryService.addPhotoGallery(req.body)
+    .then(addedPhotoGalleryResult => {
       res.send(addedPhotoGalleryResult);
-    }).catch(error => {
+    })
+    .catch(error => {
       const errorObject = this.errorLogHelper.findErrorStatus(error);
       res.status(errorObject.status).send(errorObject.message);
     });
   };
 
   public updatePhotoGallery = async (req: Request, res: Response) => {
-    this.photoGalleryService.updatePhotoGallery(req.params.code, req.body).then(updatedPhotoGalleryResult => {
+    this.photoGalleryService.updatePhotoGallery(req.params.code, req.body)
+    .then(updatedPhotoGalleryResult => {
       res.send(updatedPhotoGalleryResult);
-    }).catch(error => {
+    })
+    .catch(error => {
       const errorObject = this.errorLogHelper.findErrorStatus(error);
       res.status(errorObject.status).send(errorObject.message);
     });

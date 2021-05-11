@@ -50,10 +50,12 @@ class App {
   }
 
   private setRoutes() {
-    const photoGalleryRoutes = new PhotoGalleryRoutes(new PhotoGalleryController(new PhotoGalleryService( new PhotoGalleryWorker()), new ErrorLogHelper()), new ValidateMiddleware() );
+    const photoGalleryRoutes = new PhotoGalleryRoutes(new PhotoGalleryController(new PhotoGalleryService( new PhotoGalleryWorker()), new ErrorLogHelper()), 
+      new ValidateMiddleware() );
     this.app.use("/api/v1/gallery", photoGalleryRoutes.router);
 
-    const fetchAllPhotosRoutes = new FetchAllPhotosRoutes(new FetchAllPhotosController(new PhotoGalleryService( new PhotoGalleryWorker()), new ErrorLogHelper()), new ValidateMiddleware());
+    const fetchAllPhotosRoutes = new FetchAllPhotosRoutes(new FetchAllPhotosController(new PhotoGalleryService( new PhotoGalleryWorker()), new ErrorLogHelper()), 
+      new ValidateMiddleware());
     this.app.use("/api/v1/photos", fetchAllPhotosRoutes.router);
 
     this.app.use("/", (req , res) => {
